@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Custom popup styles */
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0;
+}
+
+.custom-popup .leaflet-popup-tip {
+  width: 12px;
+  height: 12px;
+}
+
+/* Selected marker animation */
+.selected-marker {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Add these styles to your main CSS file */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.earthquake-marker {
+  animation: blink 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.earthquake-marker.high-magnitude {
+  animation: blink 1.5s infinite;
+}
+
+.selected-marker {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ensure Leaflet markers can animate */
+.leaflet-interactive {
+  will-change: transform, opacity;
+}
+
+/* Cluster marker styles */
+.cluster-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.7);
+}
+
+/* Ensure map tiles appear below sidebar */
+.leaflet-container {
+  z-index: 0;
+}
+
+/* Better mobile viewport handling */
+@supports (-webkit-touch-callout: none) {
+  .h-full {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Prevent content shifting */
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
