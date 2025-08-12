@@ -92,15 +92,16 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
       <Navbar
         onRefresh={fetchQuakes}
         lastUpdated={lastUpdated}
         onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
       />
-      <Hero />
 
-      <main className="container mx-auto px-4 pt-20 lg:px-8 -mt-12 mb-16">
+      <Hero className="mt-0" />
+
+      <main className="flex-1 container mx-auto px-4 lg:px-8 pt-6 pb-12">
         {/* Mobile Sidebar Toggle Button */}
         <button
           className="lg:hidden fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
@@ -140,44 +141,42 @@ export default function App() {
           )}
         </button>
 
-        <div className="relative flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Main Content Area */}
-          <div
-            className={`flex-1 transition-all duration-300 ${
-              isSidebarOpen ? "lg:mr-72" : ""
-            }`}
-          >
-            <FilterPanel
-              search={search}
-              setSearch={setSearch}
-              minMag={minMag}
-              setMinMag={setMinMag}
-              filteredCount={filtered.length}
-              totalCount={features.length}
-              strongestMag={strongest.mag}
-            />
+          <div className={`flex-1 ${isSidebarOpen ? "lg:mr-80" : ""}`}>
+            <div className="space-y-6">
+              <FilterPanel
+                search={search}
+                setSearch={setSearch}
+                minMag={minMag}
+                setMinMag={setMinMag}
+                filteredCount={filtered.length}
+                totalCount={features.length}
+                strongestMag={strongest.mag}
+              />
 
-            <div className="relative h-96 sm:h-[480px] w-full z-0">
-              <MapSection
+              <div className="relative h-80 sm:h-96 md:h-[30rem] w-full rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                <MapSection
+                  features={filtered}
+                  selectedFeature={selectedFeature}
+                  setSelectedFeature={setSelectedFeature}
+                  mapRef={mapRef}
+                />
+              </div>
+
+              <EarthquakeList
+                loading={loading}
                 features={filtered}
                 selectedFeature={selectedFeature}
                 setSelectedFeature={setSelectedFeature}
                 mapRef={mapRef}
               />
             </div>
-
-            <EarthquakeList
-              loading={loading}
-              features={filtered}
-              selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
-              mapRef={mapRef}
-            />
           </div>
 
-          {/* Sidebar - Fixed on mobile, normal flow on desktop */}
+          {/* Sidebar */}
           <div
-            className={`fixed lg:static inset-y-0 left-0 h-full w-72 lg:w-auto bg-white shadow-xl lg:shadow-none z-40 lg:z-auto transform ${
+            className={`fixed lg:static inset-y-0 left-0 h-full w-72 lg:w-64 bg-white shadow-xl lg:shadow-sm z-40 lg:z-auto transform ${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             } lg:translate-x-0 transition-transform duration-300 ease-in-out`}
           >

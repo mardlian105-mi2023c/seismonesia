@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import QuakeCard from "./QuakeCard";
 
 export default function EarthquakeList({
@@ -8,11 +8,67 @@ export default function EarthquakeList({
   setSelectedFeature,
   mapRef,
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // Jumlah item per halaman
+
+  // Hitung total halaman
+  const totalPages = Math.ceil(features.length / itemsPerPage);
+
+  // Dapatkan data untuk halaman saat ini
+  const currentFeatures = features.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset ke halaman 1 ketika data berubah
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [features]);
+
+  const handlePrev = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
   return (
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">
-        Recent Earthquakes
-      </h3>
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Recent Earthquakes
+        </h3>
+        {!loading && features.length > 0 && (
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handlePrev}
+              disabled={currentPage === 1}
+              className={`px-3 py-1 rounded-md ${
+                currentPage === 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+              }`}
+            >
+              Prev
+            </button>
+            <span className="text-sm text-gray-600">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={handleNext}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-1 rounded-md ${
+                currentPage === totalPages
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
 
       {loading ? (
         <div className="flex justify-center items-center h-40">
@@ -26,22 +82,24 @@ export default function EarthquakeList({
       ) : features.length === 0 ? (
         <EmptyState />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((f) => (
-            <QuakeCard
-              key={f.id}
-              feature={f}
-              isSelected={selectedFeature?.id === f.id}
-              onClick={() => {
-                setSelectedFeature(f);
-                if (mapRef.current?.flyTo) {
-                  const [lon, lat] = f.geometry.coordinates;
-                  mapRef.current.flyTo([lat, lon], 6, { duration: 0.9 });
-                }
-              }}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {currentFeatures.map((f) => (
+              <QuakeCard
+                key={f.id}
+                feature={f}
+                isSelected={selectedFeature?.id === f.id}
+                onClick={() => {
+                  setSelectedFeature(f);
+                  if (mapRef.current?.flyTo) {
+                    const [lon, lat] = f.geometry.coordinates;
+                    mapRef.current.flyTo([lat, lon], 6, { duration: 0.9 });
+                  }
+                }}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

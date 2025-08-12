@@ -1,49 +1,39 @@
 import React from "react";
+import logo from "../assets/logo s.png";
 
 export default function Navbar({ onRefresh, lastUpdated }) {
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg">
       <div className="container mx-auto px-4 lg:px-8 py-3 sm:py-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <svg
-            className="h-6 w-6 sm:h-8 sm:w-8 text-red-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-            />
-          </svg>
-          <span className="ml-2 text-lg sm:text-xl font-bold text-gray-800">
-            SeismoNesia
+        <div className="flex items-center space-x-3">
+          <img
+            src={logo}
+            alt="SeismoNesia Logo"
+            className="h-8 w-8 sm:h-10 sm:w-10"
+          />
+          <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Seismo<span className="font-extrabold">Nesia</span>
           </span>
         </div>
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <span className="hidden xs:inline text-xs sm:text-sm text-gray-500">
-            Last updated: {lastUpdated}
-          </span>
+
+        <div className="flex items-center space-x-3 sm:space-x-6">
+          <div className="hidden sm:block bg-white/10 backdrop-blur-sm rounded-lg px-3 py-1">
+            <span className="text-xs sm:text-sm text-white/90 font-medium">
+              <span className="hidden md:inline">Updated: </span>
+              <span className="font-semibold">{lastUpdated}</span>
+            </span>
+          </div>
+
           <button
             onClick={onRefresh}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-lg flex items-center text-sm sm:text-base"
+            className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            <svg
-              className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            Refresh
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/189/189687.png"
+              alt="Refresh Icon"
+              className="h-4 w-4"
+            />
+            <span className="text-sm sm:text-base font-medium">Refresh</span>
           </button>
         </div>
       </div>
