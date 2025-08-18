@@ -176,7 +176,7 @@ export default function App() {
 
           {/* Sidebar */}
           <div
-            className={`fixed lg:static inset-y-0 left-0 h-full w-72 lg:w-64 bg-white shadow-md lg:shadow-sm z-40 lg:z-auto transform ${
+            className={`fixed lg:static inset-y-0 left-0 h-full w-80 lg:w-80 bg-white shadow-md lg:shadow-sm z-40 lg:z-auto transform ${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             } lg:translate-x-0 transition-transform duration-300 ease-in-out`}
           >
