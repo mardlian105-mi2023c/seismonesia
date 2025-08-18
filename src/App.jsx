@@ -101,10 +101,10 @@ export default function App() {
 
       <Hero className="mt-0" />
 
-      <main className="flex-1 container mx-auto px-4 lg:px-8 pt-6 pb-12">
+      <main className="flex-1 container mx-auto px-2 md:px-4 pt-3 pb-6">
         {/* Mobile Sidebar Toggle Button */}
         <button
-          className="lg:hidden fixed bottom-6 right-6 z-50 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+          className="lg:hidden fixed bottom-5 right-5 z-50 bg-blue-600 text-white p-3 rounded-full shadow-md hover:bg-blue-700 transition"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           aria-label="Toggle sidebar"
         >
@@ -141,10 +141,10 @@ export default function App() {
           )}
         </button>
 
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-2">
           {/* Main Content Area */}
-          <div className={`flex-1 ${isSidebarOpen ? "lg:mr-80" : ""}`}>
-            <div className="space-y-6">
+          <div className={`flex-1 ${isSidebarOpen ? "lg:mr-72" : ""}`}>
+            <div className="space-y-3">
               <FilterPanel
                 search={search}
                 setSearch={setSearch}
@@ -155,7 +155,7 @@ export default function App() {
                 strongestMag={strongest.mag}
               />
 
-              <div className="relative h-80 sm:h-96 md:h-[30rem] w-full rounded-lg overflow-hidden shadow-sm border border-gray-200">
+              <div className="relative h-72 sm:h-80 md:h-[26rem] w-full rounded-lg overflow-hidden shadow border border-gray-200">
                 <MapSection
                   features={filtered}
                   selectedFeature={selectedFeature}
@@ -176,11 +176,11 @@ export default function App() {
 
           {/* Sidebar */}
           <div
-            className={`fixed lg:static inset-y-0 left-0 h-full w-72 lg:w-64 bg-white shadow-xl lg:shadow-sm z-40 lg:z-auto transform ${
+            className={`fixed lg:static inset-y-0 left-0 h-full w-72 lg:w-64 bg-white shadow-md lg:shadow-sm z-40 lg:z-auto transform ${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             } lg:translate-x-0 transition-transform duration-300 ease-in-out`}
           >
-            <div className="h-full overflow-y-auto p-4 border-r border-gray-200">
+            <div className="h-full overflow-y-auto p-3 border-r border-gray-200">
               <button
                 className="lg:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700"
                 onClick={() => setIsSidebarOpen(false)}

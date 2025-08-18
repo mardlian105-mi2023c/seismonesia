@@ -2,7 +2,7 @@ import React from "react";
 
 export default function RegionSelector({ continents, selected, onChange }) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-3 gap-1">
       {continents.map((continent) => (
         <button
           key={continent}

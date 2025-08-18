@@ -10,9 +10,7 @@ export default function Sidebar({
   selectedFeature,
 }) {
   return (
-    <aside className="space-y-6 w-full md:w-auto">
-      {/* Mobile menu button would be in the parent/layout component */}
-
+    <aside className="space-y-4 w-full md:w-72 lg:w-80 max-w-sm">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-5">
         <div className="flex items-center justify-between mb-3">
           <h4 className="font-semibold text-gray-800 text-sm md:text-base">
@@ -23,7 +21,6 @@ export default function Sidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               strokeLinecap="round"
@@ -40,9 +37,13 @@ export default function Sidebar({
         />
       </div>
 
-      <EarthquakeDetails selectedFeature={selectedFeature} />
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-5">
+        <EarthquakeDetails selectedFeature={selectedFeature} />
+      </div>
 
-      <QuickTips />
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-5">
+        <QuickTips />
+      </div>
     </aside>
   );
 }
